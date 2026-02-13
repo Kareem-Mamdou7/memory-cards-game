@@ -2,6 +2,7 @@ const cardContents = document.querySelectorAll(".card-content");
 const scoreDisplay = document.getElementById("score-display");
 const reshuffleButton = document.getElementById("reshuffle");
 const cards = document.querySelectorAll(".card");
+let wrongAnswerTimeout;
 let score = 0;
 let firstSelection;
 let secondSelection;
@@ -80,11 +81,16 @@ cards.forEach((card) => {
 					secondSelection.classList.add("flipped");
 					resetSelections();
 				} else {
-					firstSelection.classList.remove("flipped");
-					secondSelection.classList.remove("flipped");
-					firstSelectionChild.classList.add("hidden");
-					secondSelectionChild.classList.add("hidden");
-					resetSelections();
+					secondSelectionChild.classList.remove("hidden");
+					secondSelection.classList.add("flipped");
+
+					wrongAnswerTimeout = setTimeout(() => {
+						firstSelection.classList.remove("flipped");
+						secondSelection.classList.remove("flipped");
+						firstSelectionChild.classList.add("hidden");
+						secondSelectionChild.classList.add("hidden");
+						resetSelections();
+					}, 500);
 				}
 			}
 		}
@@ -94,6 +100,7 @@ cards.forEach((card) => {
 function resetSelections() {
 	firstSelection = null;
 	secondSelection = null;
+	clearTimeout(wrongAnswerTimeout);
 }
 
 function unflipAllCards() {
