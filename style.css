@@ -37,10 +37,12 @@ body {
 	font-size: 64px;
 	width: 150px;
 	height: 150px;
+	cursor: pointer;
 }
 
 .flipped {
 	background-color: dodgerblue;
+	cursor: default;
 }
 
 .solver {
@@ -57,4 +59,6 @@ body {
 	border-radius: 10px;
 	border: none;
 	background-color: dodgerblue;
+	cursor: pointer;
+	color: white;
 }

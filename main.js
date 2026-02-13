@@ -1,10 +1,11 @@
-const cards = document.querySelectorAll(".card");
+const cardContents = document.querySelectorAll(".card-content");
 const scoreDisplay = document.getElementById("score-display");
 const reshuffleButton = document.getElementById("reshuffle");
+const cards = document.querySelectorAll(".card");
 let score = 0;
 let firstSelection;
 let secondSelection;
-const solvedCards = [];
+let solvedCards = [];
 const pairs = [
 	"A",
 	"B",
@@ -25,15 +26,34 @@ const pairs = [
 	"H",
 ];
 
+shuffle();
+
 reshuffleButton.addEventListener("click", reshuffle);
 
+function shuffle() {
+	let pairsCopy = structuredClone(pairs);
+
+	cardContents.forEach((card) => {
+		randomIndex = Math.floor(Math.random() * pairsCopy.length);
+		randomPairSelection = pairsCopy[randomIndex];
+		card.innerText = randomPairSelection;
+
+		if (randomIndex > -1) pairsCopy.splice(randomIndex, 1);
+		card.classList.add("hidden");
+	});
+}
+
+function reshuffle() {
+	score = 0;
+	scoreDisplay.innerText = ``;
+	shuffle();
+	resetSelections();
+	unflipAllCards();
+
+	solvedCards = [];
+}
+
 cards.forEach((card) => {
-	randomIndex = Math.floor(Math.random() * pairs.length);
-	randomPairSelection = pairs[randomIndex];
-	card.innerText = randomPairSelection;
-
-	if (randomIndex > -1) pairs.splice(randomIndex, 1);
-
 	card.addEventListener("click", () => {
 		if (!solvedCards.includes(card) && !card.classList.contains("flipped")) {
 			if (!firstSelection) {
@@ -63,6 +83,12 @@ cards.forEach((card) => {
 function resetSelections() {
 	firstSelection = null;
 	secondSelection = null;
+}
+
+function unflipAllCards() {
+	cardContents.forEach((card) => {
+		card.classList.remove("flipped");
+	});
 }
 
 function renderScore() {
