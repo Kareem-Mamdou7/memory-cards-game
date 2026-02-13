@@ -8,7 +8,6 @@ let firstSelection;
 let secondSelection;
 let firstSelectionChild;
 let secondSelectionChild;
-let solvedCards = [];
 
 let isPaused = false;
 
@@ -40,8 +39,8 @@ function shuffle() {
 	let pairsCopy = structuredClone(pairs);
 
 	cardContents.forEach((card) => {
-		randomIndex = Math.floor(Math.random() * pairsCopy.length);
-		randomPairSelection = pairsCopy[randomIndex];
+		let randomIndex = Math.floor(Math.random() * pairsCopy.length);
+		let randomPairSelection = pairsCopy[randomIndex];
 		card.innerText = randomPairSelection;
 
 		if (randomIndex > -1) pairsCopy.splice(randomIndex, 1);
@@ -55,17 +54,11 @@ function reshuffle() {
 	shuffle();
 	resetSelections();
 	unflipAllCards();
-
-	solvedCards = [];
 }
 
 cards.forEach((card) => {
 	card.addEventListener("click", () => {
-		if (
-			!solvedCards.includes(card.children[0]) &&
-			!card.classList.contains("flipped") &&
-			!isPaused
-		) {
+		if (!card.classList.contains("solved") && !isPaused) {
 			if (!firstSelection) {
 				card.classList.add("flipped");
 				firstSelection = card;
@@ -78,8 +71,8 @@ cards.forEach((card) => {
 				secondSelectionChild = secondSelection.children[0];
 
 				if (secondSelectionChild.innerText === firstSelectionChild.innerText) {
-					solvedCards.push(firstSelection);
-					solvedCards.push(secondSelection);
+					firstSelection.classList.add("solved");
+					secondSelection.classList.add("solved");
 
 					remainingPairs--;
 					renderRemainingPairs();
@@ -87,10 +80,6 @@ cards.forEach((card) => {
 					secondSelection.classList.add("flipped");
 					resetSelections();
 					isPaused = false;
-
-					if (solvedCards.length === cards.length) {
-						reshuffle();
-					}
 				} else {
 					secondSelectionChild.classList.remove("hidden");
 					secondSelection.classList.add("flipped");
@@ -118,6 +107,7 @@ function resetSelections() {
 function unflipAllCards() {
 	cards.forEach((card) => {
 		card.classList.remove("flipped");
+		card.classList.remove("solved");
 	});
 }
 
