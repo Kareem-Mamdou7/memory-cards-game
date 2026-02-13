@@ -16,7 +16,7 @@ body {
 	gap: 50px;
 }
 
-#score-display {
+#remaining-display {
 	color: white;
 	font-size: 48px;
 }
@@ -24,17 +24,22 @@ body {
 .playground {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	gap: 10px;
+	gap: 40px;
 }
 
 .card {
-	background-color: white;
+	background-color: #aaaaaa;
 	color: black;
 	border-radius: 10px;
 	font-size: 64px;
-	width: 150px;
-	height: 150px;
+	width: 120px;
+	height: 120px;
 	cursor: pointer;
+	transition: transform 200ms ease-out;
+}
+
+.card:hover {
+	transform: rotate(20deg);
 }
 
 .card-content {
@@ -67,4 +72,9 @@ body {
 	background-color: dodgerblue;
 	cursor: pointer;
 	color: white;
+	transition: padding 200ms;
+}
+
+#reshuffle:hover {
+	padding: 32px;
 }

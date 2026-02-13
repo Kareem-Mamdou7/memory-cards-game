@@ -1,14 +1,17 @@
 const cardContents = document.querySelectorAll(".card-content");
-const scoreDisplay = document.getElementById("score-display");
+const remainingPairsDisplay = document.getElementById("remaining-display");
 const reshuffleButton = document.getElementById("reshuffle");
 const cards = document.querySelectorAll(".card");
 let wrongAnswerTimeout;
-let score = 0;
+let remainingPairs = cards.length / 2;
 let firstSelection;
 let secondSelection;
 let firstSelectionChild;
 let secondSelectionChild;
 let solvedCards = [];
+
+let isPaused = false;
+
 const pairs = [
 	"A",
 	"B",
@@ -47,8 +50,8 @@ function shuffle() {
 }
 
 function reshuffle() {
-	score = 0;
-	scoreDisplay.innerText = ``;
+	remainingPairs = cards.length / 2;
+	remainingPairsDisplay.innerText = ``;
 	shuffle();
 	resetSelections();
 	unflipAllCards();
@@ -60,7 +63,8 @@ cards.forEach((card) => {
 	card.addEventListener("click", () => {
 		if (
 			!solvedCards.includes(card.children[0]) &&
-			!card.classList.contains("flipped")
+			!card.classList.contains("flipped") &&
+			!isPaused
 		) {
 			if (!firstSelection) {
 				card.classList.add("flipped");
@@ -68,6 +72,8 @@ cards.forEach((card) => {
 				firstSelectionChild = card.children[0];
 				firstSelectionChild.classList.remove("hidden");
 			} else {
+				isPaused = true;
+
 				secondSelection = card;
 				secondSelectionChild = secondSelection.children[0];
 
@@ -75,11 +81,16 @@ cards.forEach((card) => {
 					solvedCards.push(firstSelection);
 					solvedCards.push(secondSelection);
 
-					score++;
-					renderScore();
+					remainingPairs--;
+					renderRemainingPairs();
 					secondSelectionChild.classList.remove("hidden");
 					secondSelection.classList.add("flipped");
 					resetSelections();
+					isPaused = false;
+
+					if (solvedCards.length === cards.length) {
+						reshuffle();
+					}
 				} else {
 					secondSelectionChild.classList.remove("hidden");
 					secondSelection.classList.add("flipped");
@@ -90,6 +101,7 @@ cards.forEach((card) => {
 						firstSelectionChild.classList.add("hidden");
 						secondSelectionChild.classList.add("hidden");
 						resetSelections();
+						isPaused = false;
 					}, 500);
 				}
 			}
@@ -109,6 +121,6 @@ function unflipAllCards() {
 	});
 }
 
-function renderScore() {
-	scoreDisplay.innerText = `Score = ${score}`;
+function renderRemainingPairs() {
+	remainingPairsDisplay.innerText = `Remaining Pairs = ${remainingPairs}`;
 }
