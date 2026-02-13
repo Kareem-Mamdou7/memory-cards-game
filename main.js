@@ -5,6 +5,8 @@ const cards = document.querySelectorAll(".card");
 let score = 0;
 let firstSelection;
 let secondSelection;
+let firstSelectionChild;
+let secondSelectionChild;
 let solvedCards = [];
 const pairs = [
 	"A",
@@ -55,24 +57,33 @@ function reshuffle() {
 
 cards.forEach((card) => {
 	card.addEventListener("click", () => {
-		if (!solvedCards.includes(card) && !card.classList.contains("flipped")) {
+		if (
+			!solvedCards.includes(card.children[0]) &&
+			!card.classList.contains("flipped")
+		) {
 			if (!firstSelection) {
 				card.classList.add("flipped");
 				firstSelection = card;
+				firstSelectionChild = card.children[0];
+				firstSelectionChild.classList.remove("hidden");
 			} else {
 				secondSelection = card;
+				secondSelectionChild = secondSelection.children[0];
 
-				if (secondSelection.innerText === firstSelection.innerText) {
+				if (secondSelectionChild.innerText === firstSelectionChild.innerText) {
 					solvedCards.push(firstSelection);
 					solvedCards.push(secondSelection);
 
 					score++;
 					renderScore();
+					secondSelectionChild.classList.remove("hidden");
 					secondSelection.classList.add("flipped");
 					resetSelections();
 				} else {
 					firstSelection.classList.remove("flipped");
 					secondSelection.classList.remove("flipped");
+					firstSelectionChild.classList.add("hidden");
+					secondSelectionChild.classList.add("hidden");
 					resetSelections();
 				}
 			}
@@ -86,7 +97,7 @@ function resetSelections() {
 }
 
 function unflipAllCards() {
-	cardContents.forEach((card) => {
+	cards.forEach((card) => {
 		card.classList.remove("flipped");
 	});
 }

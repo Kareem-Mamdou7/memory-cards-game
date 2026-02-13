@@ -29,9 +29,6 @@ body {
 
 .card {
 	background-color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	color: black;
 	border-radius: 10px;
 	font-size: 64px;
@@ -40,8 +37,17 @@ body {
 	cursor: pointer;
 }
 
+.card-content {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .flipped {
 	background-color: dodgerblue;
+	display: block;
 	cursor: default;
 }
 
