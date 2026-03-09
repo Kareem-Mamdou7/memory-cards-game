@@ -86,6 +86,10 @@ body {
 	background-color: green;
 }
 
+.solved-text {
+	color: green;
+}
+
 .hidden {
 	display: none;
 }

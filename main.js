@@ -137,6 +137,6 @@ function renderRemainingPairs() {
 	if (remainingPairs)
 		remainingPairsDisplay.innerHTML = `Remaining Pairs = ${remainingPairs}`;
 	else {
-		remainingPairsDisplay.innerHTML = `<span class="solved">You Won! Congratulations!</span>`;
+		remainingPairsDisplay.innerHTML = `<span class="solved-text">You Won! Congratulations!</span>`;
 	}
 }
