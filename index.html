@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <h1 id="gameName">Memory Cards Game</h1>
+    <button id="startButton">Start</button>
+
+    <div id="container" class="hidden">
       <div id="remaining-display"></div>
 
       <div class="playground">
@@ -29,7 +32,10 @@
         <div class="card"><span class="card-content"></span></div>
       </div>
 
-      <button id="reshuffle">Reshuffle</button>
+      <div id="buttonsContainer">
+        <button id="endGameButton">End Game</button>
+        <button id="reshuffleButton">Reshuffle</button>
+      </div>
     </div>
 
     <script src="main.js"></script>

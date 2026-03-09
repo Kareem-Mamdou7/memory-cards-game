@@ -1,7 +1,12 @@
 const cardContents = document.querySelectorAll(".card-content");
 const remainingPairsDisplay = document.getElementById("remaining-display");
-const reshuffleButton = document.getElementById("reshuffle");
+const reshuffleButton = document.getElementById("reshuffleButton");
 const cards = document.querySelectorAll(".card");
+const gameContainer = document.getElementById("container");
+const startButton = document.getElementById("startButton");
+const endButton = document.getElementById("endGameButton");
+const gameName = document.getElementById("gameName");
+
 let wrongAnswerTimeout;
 let remainingPairs = cards.length / 2;
 let firstSelection;
@@ -10,6 +15,21 @@ let firstSelectionChild;
 let secondSelectionChild;
 
 let isPaused = false;
+
+startButton.addEventListener("click", () => {
+	startButton.style.display = "none";
+	gameName.style.display = "none";
+	gameContainer.style.display = "flex";
+
+	shuffle();
+});
+
+endButton.addEventListener("click", () => {
+	startButton.style.display = "flex";
+	gameName.style.display = "flex";
+	gameContainer.style.display = "none";
+	reshuffle();
+});
 
 const pairs = [
 	"A",
@@ -31,11 +51,10 @@ const pairs = [
 	"H",
 ];
 
-shuffle();
-
 reshuffleButton.addEventListener("click", reshuffle);
 
 function shuffle() {
+	renderRemainingPairs();
 	let pairsCopy = structuredClone(pairs);
 
 	cardContents.forEach((card) => {
@@ -70,7 +89,10 @@ cards.forEach((card) => {
 				secondSelection = card;
 				secondSelectionChild = secondSelection.children[0];
 
-				if (secondSelectionChild.innerText === firstSelectionChild.innerText) {
+				if (
+					secondSelectionChild.innerText === firstSelectionChild.innerText &&
+					firstSelection !== secondSelection
+				) {
 					firstSelection.classList.add("solved");
 					secondSelection.classList.add("solved");
 
@@ -112,5 +134,9 @@ function unflipAllCards() {
 }
 
 function renderRemainingPairs() {
-	remainingPairsDisplay.innerText = `Remaining Pairs = ${remainingPairs}`;
+	if (remainingPairs)
+		remainingPairsDisplay.innerHTML = `Remaining Pairs = ${remainingPairs}`;
+	else {
+		remainingPairsDisplay.innerHTML = `<span class="solved">You Won! Congratulations!</span>`;
+	}
 }
