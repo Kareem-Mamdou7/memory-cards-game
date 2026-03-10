@@ -2,7 +2,7 @@ body {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
-	background-color: #1a1a1a;
+	background-color: #384959;
 	font-family: Arial, sans-serif;
 	display: flex;
 	justify-content: center;
@@ -14,14 +14,14 @@ body {
 #gameName {
 	font-size: 64px;
 	display: block;
-	color: white;
+	color: #bdddfc;
 }
 
 #startButton {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
+	background-color: #88bdf2;
 	padding: 20px 36px;
 	font-size: 32px;
 	border-radius: 6px;
@@ -43,7 +43,7 @@ body {
 }
 
 #remaining-display {
-	color: white;
+	color: #bdddfc;
 	font-size: 48px;
 }
 
@@ -54,8 +54,8 @@ body {
 }
 
 .card {
-	background-color: #aaaaaa;
-	color: black;
+	background-color: #6a89a7;
+	color: #384959;
 	border-radius: 10px;
 	font-size: 64px;
 	width: 120px;
@@ -77,17 +77,17 @@ body {
 }
 
 .flipped {
-	background-color: dodgerblue;
+	background-color: #bdddfc;
 	display: block;
 	cursor: default;
 }
 
 .solved {
-	background-color: green;
+	background-color: #88bdf2;
 }
 
 .solved-text {
-	color: green;
+	color: #88bdf2;
 	font-size: 72px;
 	font-weight: bold;
 }
@@ -109,16 +109,17 @@ body {
 	width: 280px;
 	border-radius: 10px;
 	border: none;
-	background-color: dodgerblue;
+	background-color: #88bdf2;
 	cursor: pointer;
-	color: white;
-	transition: padding 200ms;
+	color: #384959;
+	transition: background-color 200ms;
+	font-weight: bold;
 }
 
 #reshuffleButton:hover,
 #endGameButton:hover,
 #playAgainButton:hover {
-	background-color: #aaddff;
+	background-color: #bdddfc;
 }
 
 #playAgainButton {
