@@ -3,9 +3,11 @@ const remainingPairsDisplay = document.getElementById("remaining-display");
 const reshuffleButton = document.getElementById("reshuffleButton");
 const cards = document.querySelectorAll(".card");
 const gameContainer = document.getElementById("container");
+const playground = document.getElementById("playground");
 const startButton = document.getElementById("startButton");
 const endButton = document.getElementById("endGameButton");
 const gameName = document.getElementById("gameName");
+const playAgainButton = document.getElementById("playAgainButton");
 
 let wrongAnswerTimeout;
 let remainingPairs = cards.length / 2;
@@ -28,6 +30,15 @@ endButton.addEventListener("click", () => {
 	startButton.style.display = "flex";
 	gameName.style.display = "flex";
 	gameContainer.style.display = "none";
+	reshuffle();
+});
+
+playAgainButton.addEventListener("click", () => {
+	playAgainButton.style.display = "none";
+	playground.style.display = "grid";
+	endButton.style.display = "inline";
+	reshuffleButton.style.display = "inline";
+
 	reshuffle();
 });
 
@@ -138,5 +149,9 @@ function renderRemainingPairs() {
 		remainingPairsDisplay.innerHTML = `Remaining Pairs = ${remainingPairs}`;
 	else {
 		remainingPairsDisplay.innerHTML = `<span class="solved-text">You Won! Congratulations!</span>`;
+		playAgainButton.style.display = "inline";
+		playground.style.display = "none";
+		endButton.style.display = "none";
+		reshuffleButton.style.display = "none";
 	}
 }

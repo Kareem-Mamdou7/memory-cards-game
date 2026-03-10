@@ -47,7 +47,7 @@ body {
 	font-size: 48px;
 }
 
-.playground {
+#playground {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	gap: 40px;
@@ -88,6 +88,8 @@ body {
 
 .solved-text {
 	color: green;
+	font-size: 72px;
+	font-weight: bold;
 }
 
 .hidden {
@@ -100,7 +102,8 @@ body {
 }
 
 #reshuffleButton,
-#endGameButton {
+#endGameButton,
+#playAgainButton {
 	font-size: 32px;
 	padding: 24px 0px;
 	width: 280px;
@@ -113,6 +116,11 @@ body {
 }
 
 #reshuffleButton:hover,
-#endGameButton:hover {
+#endGameButton:hover,
+#playAgainButton:hover {
 	background-color: #aaddff;
+}
+
+#playAgainButton {
+	display: none;
 }
